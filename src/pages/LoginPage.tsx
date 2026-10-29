@@ -7,7 +7,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-  const [lembrar, setLembrar] = useState(true); // <-- Estado da caixinha (marcada por padrão)
+  const [lembrar, setLembrar] = useState(true);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();

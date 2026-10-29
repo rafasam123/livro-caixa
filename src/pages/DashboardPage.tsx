@@ -9,7 +9,6 @@ export default function DashboardPage() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Navegação de meses
   const mesesAbrev = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   const [dataFiltro, setDataFiltro] = useState(new Date());
   const mesAtualStr = `${mesesAbrev[dataFiltro.getMonth()]}/${String(dataFiltro.getFullYear()).slice(2)}`;
@@ -32,9 +31,7 @@ export default function DashboardPage() {
     return <div className="fade-in"><p className="empty-note">A calcular a tua visão geral...</p></div>;
   }
 
-  // Filtrar transações apenas do mês selecionado
   const transacoesMes = transacoes.filter(t => {
-    // Evita problemas de fuso horário ao dividir a string YYYY-MM-DD
     const [anoT, mesT] = t.data.split('-');
     return Number(anoT) === dataFiltro.getFullYear() && (Number(mesT) - 1) === dataFiltro.getMonth();
   });
@@ -48,7 +45,6 @@ export default function DashboardPage() {
   const saidas = totalFixos + totalVariaveis + totalDividas + totalInvestimentos;
   const saldo = totalEntradas - saidas;
 
-  // Gerar histórico dos últimos 6 meses (terminando no mês selecionado)
   const historicoMeses = [];
   for (let i = 5; i >= 0; i--) {
     const d = new Date(dataFiltro.getFullYear(), dataFiltro.getMonth() - i, 1);
@@ -67,7 +63,6 @@ export default function DashboardPage() {
   
   const maxVal = Math.max(...historicoMeses.flatMap(h => [h.ent, h.sai]), 1);
 
-  // Dados para as barras de divisão de despesas
   const divisaoDespesas = [
     { nome: 'Custos fixos', valor: totalFixos },
     { nome: 'Custos variáveis', valor: totalVariaveis },
@@ -76,7 +71,6 @@ export default function DashboardPage() {
   ];
   const maxDivisao = Math.max(1, ...divisaoDespesas.map(d => d.valor));
 
-  // Metas de investimento (Soma todo o histórico, não apenas o mês selecionado)
   const metas = categorias
     .filter(c => c.grupo === 'investimentos')
     .map(cat => {

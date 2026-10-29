@@ -20,8 +20,6 @@ export default function LancarPage() {
   useEffect(() => {
     fetchDados();
   }, [categoriaSelecionada]); 
-  // O useEffect agora reage se a categoria selecionada mudar, garantindo que o itemSelecionado acompanha
-
   async function fetchDados() {
     let cats = await listarCategorias();
 

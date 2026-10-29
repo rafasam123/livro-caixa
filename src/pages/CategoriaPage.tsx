@@ -24,7 +24,6 @@ export default function CategoriaPage({ grupo, titulo }: CategoriaPageProps) {
   const [novaDesc, setNovaDesc] = useState('');
   const [novoTipo, setNovoTipo] = useState('Fixo');
   
-  // Estado para controlar qual fatia está selecionada
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const mesStr = `${mesesAbrev[dataFiltro.getMonth()]}/${dataFiltro.getFullYear().toString().slice(-2)}`;
@@ -62,7 +61,6 @@ export default function CategoriaPage({ grupo, titulo }: CategoriaPageProps) {
     }
   }
 
-  // Prepara os dados para o gráfico
   const dadosGrafico = itens.map(item => {
     const total = transacoes
       .filter(t => t.categoria_id === item.id)
@@ -73,7 +71,6 @@ export default function CategoriaPage({ grupo, titulo }: CategoriaPageProps) {
 
   const totalMes = transacoes.reduce((acc, curr) => acc + Number(curr.valor), 0);
 
-  // Lógica para o que aparece no meio e na lista em baixo
   const itemSelecionado = selectedIndex !== null ? dadosGrafico[selectedIndex] : null;
   const transacoesDaCategoria = itemSelecionado 
     ? transacoes.filter(t => t.categoria_id === itemSelecionado.id).sort((a, b) => b.valor - a.valor)
@@ -85,7 +82,6 @@ export default function CategoriaPage({ grupo, titulo }: CategoriaPageProps) {
     ? `${((itemSelecionado.value / totalMes) * 100).toFixed(1)}%` 
     : '100%';
 
-  // Função para desenhar as fatias: Aplica o tamanho extra na selecionada e opacidade nas restantes
   const renderActiveShape = (props: { cx: number; cy: number; innerRadius: number; outerRadius: number; startAngle: number; endAngle: number; fill?: string; index: number }) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, index } = props;
     const isSelected = selectedIndex === index;
@@ -214,7 +210,6 @@ export default function CategoriaPage({ grupo, titulo }: CategoriaPageProps) {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     
                     {itemSelecionado === null ? (
-                      // Mostrar resumo de todas as categorias
                       dadosGrafico.map((d, i) => {
                         const percent = (d.value / totalMes) * 100;
                         return (
@@ -230,7 +225,6 @@ export default function CategoriaPage({ grupo, titulo }: CategoriaPageProps) {
                         );
                       })
                     ) : (
-                      // Mostrar compras individuais da categoria selecionada
                       transacoesDaCategoria.map((t, i) => {
                         const percent = (t.valor / itemSelecionado.value) * 100;
                         return (

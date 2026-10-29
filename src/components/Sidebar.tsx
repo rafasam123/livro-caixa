@@ -18,7 +18,7 @@ export default function Sidebar({ activeSection, setActiveSection }: SidebarProp
         Livro-<span>caixa</span>
       </div>
       
-      <nav style={{ flex: 1 }}> {/* flex: 1 empurra o rodapé para o fundo */}
+      <nav style={{ flex: 1 }}>
         <div className="nav-group">
           <div className="nav-label">Dia a dia</div>
           <button className={activeSection === 'lancar' ? 'active' : ''} onClick={() => setActiveSection('lancar')}>
@@ -42,9 +42,8 @@ export default function Sidebar({ activeSection, setActiveSection }: SidebarProp
         </div>
       </nav>
 
-      {/* Novo rodapé com Logout elegante */}
       <div style={{ padding: '24px', borderTop: '1px solid #EAE4D3' }}>
-        <button 
+        <button
           onClick={handleLogout}
           style={{
             width: '100%', padding: '12px', background: 'transparent', border: '1px solid #D6CEC4',
